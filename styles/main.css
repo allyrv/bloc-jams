@@ -70,9 +70,9 @@ body {
 @media (min-width: 640px) {
    html { font-size: 112%; }
    .column {
-        float: left;
-        padding-left: 1rem;
-        padding-right: 1rem;
+      float: left;
+      padding-left: 1rem;
+      padding-right: 1rem;
     }
 
      .column.full { width: 100%; }
