@@ -32,7 +32,7 @@ var createSongRow = function(songNumber, songName, songLength) {
       '<tr class="album-view-song-item">'
       + '  <td class="song-item-number" data-song-number="' + songNumber + '">' + songNumber + '</td>'
       + '  <td class="song-item-title">' + songName + '</td>'
-      + '  <td class="song-item-duration">' + songLength + '</td>'
+      + '  <td class="song-item-duration">' + filterTimeCode(songLength) + '</td>'
       + '</tr>'
       ;
 
@@ -110,6 +110,26 @@ var setCurrentAlbum = function(album) {
       }
 };
 
+var setCurrentTimeInPlayerBar = function(currentTime) {
+    var $time = $('.current-time');
+    var $startTime = buzz.toTimer(currentTime.getTime());
+    $time.html($startTime);
+};
+
+var setTotalTimeInPlayerBar = function(totalTime) {
+  var $totalTimeClass = $('.total-time');
+  var $timeDuration = buzz.toTimer(totalTime.getDuration());
+  $totalTimeClass.html($timeDuration);
+};
+
+var filterTimeCode = function(timeInSeconds) {
+  var $duration = $('.song-item-duration');
+  var $floatingPoint = parseFloat(timeInSeconds);
+  var $mins = Math.floor($floatingPoint / 60);
+  var $secs = Math.floor ($floatingPoint - $mins * 60);
+  return $mins + ':' + $secs;
+};
+
 var updateSeekBarWhileSongPlays = function() {
   if (currentSoundFile) {
     currentSoundFile.bind('timeupdate', function(event) {
@@ -117,6 +137,8 @@ var updateSeekBarWhileSongPlays = function() {
       var $seekBar = $('.seek-control .seek-bar');
 
       updateSeekPercentage($seekBar, seekBarFillRatio);
+      setCurrentTimeInPlayerBar(currentSoundFile);
+      setTotalTimeInPlayerBar(currentSoundFile);
     });
   }
 };
@@ -237,6 +259,7 @@ var updatePlayerBarSong = function() {
     $('.currently-playing .artist-name').text(currentAlbum.artist);
     $('.currently-playing .artist-song-mobile').text(currentSongFromAlbum.title + " - " + currentAlbum.artist);
     $('.main-controls .play-pause').html(playerBarPauseButton);
+    setTotalTimeInPlayerBar(currentSoundFile);
  };
 
 var playButtonTemplate = '<a class="album-song-button"><span class="ion-play"></span></a>';
