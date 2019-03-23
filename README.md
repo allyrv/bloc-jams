@@ -4,4 +4,4 @@ This project was completed for Bloc foundation lessons. I was provided step-by-s
 
 The app will display music albums, track listings, and provide the ability to play tracks.
 
-Check it out (here)[https://infallible-edison-6471da.netlify.com/index.html]
+Check it out [here](https://infallible-edison-6471da.netlify.com/index.html)
